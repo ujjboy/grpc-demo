@@ -1,0 +1,29 @@
+syntax = "proto3";
+package io.bsoa.rpc.grpc;
+option java_package = "io.bsoa.rpc.grpc";
+option java_multiple_files = true;
+//option java_outer_classname = "HelloServiceProto";
+
+// 对应四种rpc方式
+service HelloService {
+    //  request-response
+    rpc simpleRpc (HelloRequest) returns (HelloResponse) {};
+    // request-stream response，一般用于下载
+    rpc serverSideStreamRpc (HelloRequest) returns (stream HelloResponse) {};
+    // stream request-response，一般用于上传
+    rpc clientSideStreamRpc (stream HelloRequest) returns (HelloResponse) {};
+    // twoway
+    rpc bidirectionalStreamRpc(stream HelloRequest) returns (stream HelloResponse) {};
+}
+
+message HelloRequest {
+    string name  = 1;
+    int32 id    = 2;
+}
+
+message HelloResponse {
+    message Result {
+        repeated string message = 1;
+    }
+    repeated Result result = 1;
+}

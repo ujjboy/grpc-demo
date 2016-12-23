@@ -1,0 +1,7 @@
+syntax = "proto3";
+package io.bsoa.rpc.grpc;
+option java_package = "io.bsoa.rpc.grpc.service";
+import "TestModel.proto";
+service TestRpcService {
+    rpc sayHello (TestRequest) returns (TestResponse);
+}
